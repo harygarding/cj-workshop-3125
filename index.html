@@ -190,6 +190,30 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
 .cta-ico{font-size:22px;flex-shrink:0}
 .cta-txt{font-size:clamp(13px,1.2vw,15px);color:rgba(255,255,255,.88);line-height:1.55}
 
+/* ── Thought for a Minute · Dating App ── */
+.stfm{justify-content:flex-start;align-items:flex-start;padding-top:38px}
+.stfm .tfm-hed{font-size:clamp(30px,3.8vw,52px);font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:10px;max-width:820px}
+.stfm .tfm-hed em{font-style:normal;color:rgba(255,255,255,.5)}
+.tfm-body{font-size:clamp(14px,1.35vw,17px);color:rgba(255,255,255,.78);line-height:1.65;max-width:800px;margin-bottom:18px}
+.tfm-compare{display:grid;grid-template-columns:1fr auto 1fr;gap:0;width:100%;margin-bottom:18px;align-items:stretch}
+.tfm-side{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 20px}
+.tfm-side-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;margin-bottom:10px;opacity:.55}
+.tfm-row{display:flex;flex-direction:column;gap:8px}
+.tfm-attr{display:flex;align-items:center;gap:10px;font-size:clamp(13px,1.2vw,15px);color:rgba(255,255,255,.82)}
+.tfm-attr .ta-ic{font-size:18px;width:28px;text-align:center;flex-shrink:0}
+.tfm-vs{display:flex;align-items:center;justify-content:center;padding:0 18px;font-size:clamp(20px,2.2vw,30px);font-weight:900;color:rgba(255,255,255,.18);white-space:nowrap}
+.tfm-dating{border-top:3px solid rgba(255,100,130,.5)}
+.tfm-dating .tfm-side-lbl{color:rgba(255,150,170,.9)}
+.tfm-employer{border-top:3px solid var(--mid)}
+.tfm-employer .tfm-side-lbl{color:rgba(100,160,255,.9)}
+.plat-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:18px}
+.plat-lbl{font-size:13px;font-weight:700;color:var(--muted);margin-right:4px}
+.plat{display:flex;align-items:center;gap:6px;background:rgba(0,58,155,.4);border:1px solid rgba(37,87,214,.45);border-radius:100px;padding:5px 13px;font-size:13px;font-weight:700;color:rgba(255,255,255,.88)}
+.plat .pi{font-size:15px}
+.tfm-qbox{background:rgba(37,87,214,.18);border-left:4px solid var(--mid);border-radius:0 14px 14px 0;padding:18px 24px;width:100%}
+.tfm-qlbl{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.13em;color:var(--mid);margin-bottom:6px}
+.tfm-qtext{font-size:clamp(16px,1.8vw,22px);font-weight:800;color:#fff;line-height:1.35;font-style:italic}
+
 /* ── SLIDE 12 Closing ── */
 .sc{justify-content:center;align-items:center;text-align:center}
 .sc .cl{margin-bottom:32px}
@@ -314,9 +338,58 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
 </div>
 
 <!-- ═══════════════════════════════════════════
-     SLIDE 5 · AI Brand Check Activity
+     SLIDE 5 · Thought for a Minute — Dating App Analogy
 ════════════════════════════════════════════ -->
-<div class="slide sai" data-i="4">
+<div class="slide stfm" data-i="4">
+  <div class="blobs">
+    <div class="blob" style="width:520px;height:520px;background:#003A9B;top:-140px;right:-120px;--d:14s;opacity:.5;--x1:-25px;--y1:18px;--x2:20px;--y2:-25px"></div>
+    <div class="blob" style="width:360px;height:360px;background:#2557D6;bottom:-90px;left:-80px;--d:10s;--dl:-4s;opacity:.35;--x1:20px;--y1:-15px;--x2:-15px;--y2:20px"></div>
+    <div class="blob" style="width:200px;height:200px;background:#003A9B;top:40%;left:35%;--d:8s;--dl:-2s;opacity:.22;--x1:10px;--y1:-8px;--x2:-8px;--y2:10px"></div>
+  </div>
+  <span class="badge reveal">💬 Thought for a Minute · Brand Consistency</span>
+  <h2 class="tfm-hed reveal">Employer branding is like <em>a dating app.</em></h2>
+  <p class="tfm-body reveal">If a match looks great on the app but their photos, bio, and social profiles all tell a different story — that's an instant red flag. Candidates feel exactly the same way about your brand.</p>
+  <div class="tfm-compare reveal">
+    <div class="tfm-side tfm-dating">
+      <div class="tfm-side-lbl">💘 Dating App — what people check</div>
+      <div class="tfm-row">
+        <div class="tfm-attr"><span class="ta-ic">📸</span> Photos &amp; first impression</div>
+        <div class="tfm-attr"><span class="ta-ic">📝</span> Bio &amp; personality</div>
+        <div class="tfm-attr"><span class="ta-ic">🔗</span> Social profiles &amp; activity</div>
+        <div class="tfm-attr"><span class="ta-ic">🤝</span> Mutual friends &amp; reviews</div>
+        <div class="tfm-attr"><span class="ta-ic">🔄</span> Does the story stay consistent?</div>
+      </div>
+    </div>
+    <div class="tfm-vs">→</div>
+    <div class="tfm-side tfm-employer">
+      <div class="tfm-side-lbl">🏢 Your employer brand — what candidates check</div>
+      <div class="tfm-row">
+        <div class="tfm-attr"><span class="ta-ic">💼</span> Job ads &amp; listings</div>
+        <div class="tfm-attr"><span class="ta-ic">⭐</span> Indeed &amp; Glassdoor reviews</div>
+        <div class="tfm-attr"><span class="ta-ic">🔗</span> LinkedIn &amp; social channels</div>
+        <div class="tfm-attr"><span class="ta-ic">🌐</span> Website &amp; careers page</div>
+        <div class="tfm-attr"><span class="ta-ic">🔄</span> Does the story stay consistent?</div>
+      </div>
+    </div>
+  </div>
+  <div class="plat-row reveal">
+    <span class="plat-lbl">Candidates cross-check you on:</span>
+    <span class="plat"><span class="pi">💙</span> Indeed</span>
+    <span class="plat"><span class="pi">🟢</span> Glassdoor</span>
+    <span class="plat"><span class="pi">🔵</span> LinkedIn</span>
+    <span class="plat"><span class="pi">🌐</span> Your Website</span>
+    <span class="plat"><span class="pi">📱</span> Social Media</span>
+  </div>
+  <div class="tfm-qbox reveal">
+    <div class="tfm-qlbl">🪞 Ask the room →</div>
+    <p class="tfm-qtext">"Truthfully — are you consistent across every place a candidate might encounter your brand?"</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 6 · AI Brand Check Activity
+════════════════════════════════════════════ -->
+<div class="slide sai" data-i="5">
   <div class="blobs">
     <div class="blob" style="width:540px;height:540px;background:#003A9B;top:-150px;right:-130px;--d:15s;opacity:.55;--x1:-30px;--y1:20px;--x2:22px;--y2:-30px"></div>
     <div class="blob" style="width:380px;height:380px;background:#2557D6;bottom:-100px;left:-100px;--d:11s;--dl:-5s;opacity:.4;--x1:24px;--y1:-18px;--x2:-18px;--y2:24px"></div>
@@ -397,7 +470,7 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
     <div class="blob" style="width:490px;height:490px;background:#003A9B;top:-120px;right:-110px;--d:13s;opacity:.57;--x1:-28px;--y1:18px;--x2:22px;--y2:-28px"></div>
     <div class="blob" style="width:330px;height:330px;background:#2557D6;bottom:-75px;left:18%;--d:10s;--dl:-3s;opacity:.35;--x1:18px;--y1:-13px;--x2:-13px;--y2:18px"></div>
   </div>
-  <canvas class="pc" data-si="6"></canvas>
+  <canvas class="pc" data-si="7"></canvas>
   <span class="badge reveal">Stage 4 of 6</span>
   <h2 class="sh reveal">📋 Getting Applications</h2>
   <p class="fq reveal">How easy and frictionless is it for someone to actually apply?</p>
@@ -476,7 +549,7 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
     <div class="blob" style="width:380px;height:380px;background:#2557D6;bottom:-100px;right:-100px;--d:11s;--dl:-5s;opacity:.4;--x1:-25px;--y1:18px;--x2:18px;--y2:-25px"></div>
     <div class="blob" style="width:250px;height:250px;background:#003A9B;top:20%;right:15%;--d:8s;--dl:-3s;opacity:.25;--x1:15px;--y1:-12px;--x2:-10px;--y2:10px"></div>
   </div>
-  <canvas class="pc" data-si="9"></canvas>
+  <canvas class="pc" data-si="10"></canvas>
   <span class="badge reveal">Group Activity</span>
   <h2 class="reveal">Where Does Your Store Stand?</h2>
   <p class="vsub reveal">For each stage, vote as a group — be honest. Where are you strong, and where are you losing candidates?</p>
@@ -632,7 +705,7 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
     <div class="blob" style="width:440px;height:440px;background:#2557D6;bottom:-115px;right:-115px;--d:11s;--dl:-5s;opacity:.42;--x1:-28px;--y1:22px;--x2:22px;--y2:-28px"></div>
     <div class="blob" style="width:260px;height:260px;background:#003A9B;top:28%;right:18%;--d:8s;--dl:-3s;opacity:.27;--x1:14px;--y1:-14px;--x2:-10px;--y2:10px"></div>
   </div>
-  <canvas class="pc" data-si="12"></canvas>
+  <canvas class="pc" data-si="13"></canvas>
   <div class="cl reveal">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 248 72" style="height:46px;width:auto;display:block;margin:0 auto;opacity:.7">
       <path d="M 5 26 Q 16 7 28 26" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
