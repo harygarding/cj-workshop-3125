@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Candidate Journey Workshop — Indeed × Domino's</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#001C40;--blue:#003A9B;--mid:#2557D6;
+  --w:#fff;--muted:rgba(255,255,255,.55);
+  --card:rgba(255,255,255,.06);--border:rgba(255,255,255,.12);
+  --prompt:rgba(0,58,155,.32);
+  --green:rgba(45,199,109,.85);--amber:rgba(255,196,57,.85);--red:rgba(255,90,80,.8);
+}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Noto Sans',sans-serif;
+  background:var(--ink);color:var(--w);-webkit-font-smoothing:antialiased}
+body:not(.fl) #deck{opacity:0}
+body.fl #deck{opacity:1;transition:opacity .4s ease}
+
+/* Spotlight */
+#sl{position:fixed;inset:0;pointer-events:none;z-index:9000;
+  background:radial-gradient(circle 300px at var(--sx,50%) var(--sy,50%),
+  rgba(37,87,214,.14) 0%,transparent 70%)}
+
+/* Deck */
+#deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;
+  padding:52px 80px;overflow:hidden;opacity:0;
+  transition:opacity .46s ease;pointer-events:none}
+.slide.active{opacity:1;pointer-events:all;z-index:2}
+
+/* Blobs */
+.blobs{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(100px);will-change:transform;
+  animation:bm var(--d,14s) ease-in-out infinite var(--dl,0s)}
+@keyframes bm{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(var(--x1,25px),var(--y1,-20px)) scale(1.05)}
+  66%{transform:translate(var(--x2,-20px),var(--y2,20px)) scale(.95)}}
+
+/* Particle canvas */
+.pc{position:absolute;inset:0;pointer-events:none;opacity:.42}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+.slide.active .reveal{opacity:1!important;transform:translateY(0)!important}
+.slide.rst .reveal{transition:none!important}
+
+/* Nav dots */
+#nd{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);
+  display:flex;gap:7px;z-index:9500}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);
+  cursor:pointer;transition:background .3s,transform .3s;border:none;outline:none}
+.dot.active{background:#fff;transform:scale(1.5)}
+
+/* Badge */
+.badge{display:inline-flex;align-items:center;background:rgba(0,58,155,.45);
+  border:1px solid rgba(37,87,214,.5);border-radius:100px;padding:7px 17px;
+  font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  color:rgba(255,255,255,.8);margin-bottom:14px}
+
+/* Stat chip */
+.stat-chip{display:inline-flex;align-items:center;gap:7px;
+  background:rgba(37,87,214,.22);border:1px solid rgba(37,87,214,.45);
+  border-radius:100px;padding:5px 13px;font-size:13.5px;font-weight:600;
+  color:rgba(255,255,255,.88);margin-bottom:11px}
+
+/* EVP contrast box */
+.evp-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;
+  margin-bottom:13px;max-width:880px;width:100%}
+.evp-card{background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:14px 16px}
+.evp-s{border-left:3px solid var(--green)}
+.evp-w{border-left:3px solid rgba(255,90,80,.55)}
+.evp-lbl{font-size:11px;font-weight:800;text-transform:uppercase;
+  letter-spacing:.12em;margin-bottom:4px}
+.evp-s .evp-lbl{color:var(--green)}
+.evp-w .evp-lbl{color:rgba(255,120,100,.8)}
+.evp-txt{font-size:clamp(13px,1.18vw,15px);color:rgba(255,255,255,.82);line-height:1.5}
+
+/* Facilitator note bar */
+.fac-bar{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);border-radius:8px;
+  padding:9px 14px;margin-top:10px;width:100%}
+.fac-ico{font-size:16px;flex-shrink:0}
+.fac-txt{font-size:13px;color:rgba(255,255,255,.5)}
+
+/* ── SLIDE 1 Title ── */
+.s1{justify-content:center;align-items:center;text-align:center}
+.s1 .logo{margin-bottom:46px}
+.s1 h1{font-size:clamp(58px,6.5vw,96px);font-weight:900;letter-spacing:-.03em;line-height:1;margin-bottom:4px}
+.s1 .sub1{font-size:clamp(30px,3.3vw,52px);font-weight:400;color:var(--muted);margin-bottom:26px}
+.s1 .dl{width:50px;height:3px;background:var(--mid);border-radius:2px;margin:0 auto 20px}
+.s1 .sub2{font-size:clamp(15px,1.6vw,20px);font-weight:600;color:rgba(255,255,255,.7);margin-bottom:6px}
+.s1 .tag{font-size:clamp(12px,1.1vw,14px);font-weight:400;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.14em}
+
+/* ── SLIDE 2 Framework ── */
+.s2{justify-content:flex-start;align-items:flex-start}
+.s2 h2{font-size:clamp(28px,3.4vw,46px);font-weight:900;letter-spacing:-.025em;margin-bottom:7px}
+.s2 .intro{font-size:clamp(14px,1.4vw,17px);color:var(--muted);max-width:640px;line-height:1.65;margin-bottom:20px}
+.jtrack{display:flex;align-items:flex-start;width:100%;margin-bottom:20px}
+.jnode{display:flex;flex-direction:column;align-items:center;gap:7px;flex:1}
+.jc{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;border:2px solid}
+.jc1{background:#fff;border-color:#fff;color:var(--ink)}
+.jc2{background:rgba(255,255,255,.76);border-color:rgba(255,255,255,.76);color:var(--ink)}
+.jc3{background:rgba(255,255,255,.54);border-color:rgba(255,255,255,.54);color:var(--ink)}
+.jc4{background:rgba(255,255,255,.34);border-color:rgba(255,255,255,.34);color:rgba(0,28,64,.75)}
+.jc5{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.18);color:rgba(255,255,255,.7)}
+.jc6{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.09);color:rgba(255,255,255,.55)}
+.jlbl{font-size:11.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;text-align:center;max-width:58px}
+.jcon{flex:.5;height:2px;margin-top:25px;align-self:flex-start;background:linear-gradient(90deg,rgba(255,255,255,.3),rgba(255,255,255,.07))}
+.fwc{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%}
+.gc{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 20px;backdrop-filter:blur(8px)}
+.gc .em{font-size:26px;display:block;margin-bottom:8px}
+.gc .gt{font-size:clamp(15px,1.4vw,18px);font-weight:700;margin-bottom:5px}
+.gc .gd{font-size:clamp(13px,1.2vw,15px);color:var(--muted);line-height:1.55}
+
+/* ── SLIDES 3-8 Stage ── */
+.ss{justify-content:flex-start;align-items:flex-start;padding-top:42px}
+.sh{font-size:clamp(34px,4.2vw,58px);font-weight:900;letter-spacing:-.025em;line-height:1.05;margin-bottom:8px}
+.fq{font-size:clamp(14px,1.35vw,17px);font-style:italic;color:var(--muted);line-height:1.6;max-width:720px;margin-bottom:10px}
+.pb{background:var(--prompt);border-left:4px solid var(--mid);border-radius:0 11px 11px 0;padding:16px 20px;margin-bottom:14px;max-width:880px;width:100%}
+.pl{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.13em;color:var(--mid);margin-bottom:4px}
+.pt{font-size:clamp(14px,1.3vw,17px);font-style:italic;color:rgba(255,255,255,.9);line-height:1.55}
+.qg{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.qc{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start}
+.qb{flex-shrink:0;width:26px;height:26px;border-radius:5px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;margin-top:1px}
+.qt{font-size:clamp(13px,1.18vw,15px);color:rgba(255,255,255,.82);line-height:1.5}
+
+/* ── AI Activity slide ── */
+.sai{justify-content:flex-start;align-items:flex-start;padding-top:42px}
+.sai h2{font-size:clamp(32px,4vw,54px);font-weight:900;letter-spacing:-.03em;margin-bottom:10px}
+.sai .aisub{font-size:clamp(14px,1.35vw,17px);color:var(--muted);max-width:740px;line-height:1.6;margin-bottom:24px}
+.ai-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;margin-bottom:20px}
+.ai-step{background:rgba(0,58,155,.35);border:1px solid rgba(37,87,214,.45);border-radius:14px;padding:20px 18px}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--mid);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;margin-bottom:12px}
+.step-icon{font-size:26px;display:block;margin-bottom:10px}
+.step-title{font-size:clamp(14px,1.35vw,16px);font-weight:800;margin-bottom:7px}
+.step-body{font-size:clamp(12px,1.15vw,14px);color:rgba(255,255,255,.78);line-height:1.55}
+.step-body em{font-style:normal;background:rgba(37,87,214,.35);border-radius:5px;padding:1px 7px;font-weight:600;color:rgba(255,255,255,.95)}
+.ai-discuss{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;margin-bottom:18px}
+.ai-q{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start}
+.ai-insight{background:rgba(0,58,155,.22);border:1px solid rgba(37,87,214,.3);border-radius:13px;padding:15px 20px;display:flex;gap:12px;align-items:flex-start;width:100%}
+
+/* ── SLIDE 9 Priority Voting ── */
+.sv{justify-content:flex-start;align-items:flex-start;padding-top:36px}
+.sv h2{font-size:clamp(30px,3.5vw,48px);font-weight:900;letter-spacing:-.025em;margin-bottom:7px}
+.sv .vsub{font-size:clamp(14px,1.35vw,17px);color:var(--muted);margin-bottom:20px}
+.vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;width:100%;margin-bottom:18px}
+.vc{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 16px}
+.vc-n{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--mid);margin-bottom:5px}
+.vc-t{font-size:clamp(14px,1.35vw,16px);font-weight:800;margin-bottom:10px}
+.vdots{display:flex;gap:6px}
+.vd{flex:1;padding:8px 4px;border-radius:9px;border:1px solid rgba(255,255,255,.12);text-align:center;font-size:12px;font-weight:700;line-height:1.35}
+.vdr{color:var(--red);border-color:rgba(255,90,80,.25)}
+.vdy{color:var(--amber);border-color:rgba(255,196,57,.25)}
+.vdg{color:var(--green);border-color:rgba(45,199,109,.25)}
+.commit-box{background:rgba(0,58,155,.25);border:1px solid rgba(37,87,214,.35);border-radius:13px;padding:15px 20px;display:flex;gap:12px;align-items:flex-start;width:100%}
+.cb-ico{font-size:22px;flex-shrink:0}
+.cb-txt{font-size:clamp(13px,1.2vw,15px);color:rgba(255,255,255,.85);line-height:1.55}
+
+/* ── SLIDE 10 Quick Reference ── */
+.sr{justify-content:flex-start;align-items:flex-start;padding-top:36px}
+.rh{font-size:clamp(28px,3.2vw,44px);font-weight:900;letter-spacing:-.02em;margin-bottom:5px}
+.rs{font-size:clamp(14px,1.35vw,17px);color:var(--muted);margin-bottom:20px}
+.rg{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;width:100%;margin-bottom:17px}
+.rc{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:20px 18px}
+.rn{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--mid);margin-bottom:5px}
+.rt{font-size:clamp(14px,1.35vw,17px);font-weight:800;margin-bottom:5px}
+.rd{font-size:clamp(13px,1.15vw,15px);color:var(--muted);line-height:1.5}
+.tb{background:rgba(0,58,155,.2);border:1px solid rgba(37,87,214,.28);border-radius:12px;padding:13px 18px;display:flex;gap:11px;align-items:flex-start;width:100%}
+.ti{font-size:21px;flex-shrink:0}
+.tt{font-size:clamp(13px,1.2vw,15px);color:rgba(255,255,255,.85);line-height:1.55}
+
+/* ── SLIDE 11 Indeed Solutions ── */
+.sn{justify-content:flex-start;align-items:flex-start;padding-top:42px}
+.sn h2{font-size:clamp(28px,3.4vw,46px);font-weight:900;letter-spacing:-.025em;margin-bottom:7px}
+.sn .nsub{font-size:clamp(14px,1.35vw,17px);color:var(--muted);margin-bottom:20px;max-width:640px;line-height:1.6}
+.ngrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;margin-bottom:18px}
+.nc{background:var(--card);border:1px solid rgba(37,87,214,.35);border-radius:14px;padding:18px 16px;border-top:3px solid var(--mid)}
+.nc-s{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.38);margin-bottom:4px}
+.nc-t{font-size:clamp(14px,1.35vw,17px);font-weight:800;margin-bottom:9px}
+.nc-p{font-size:13px;font-weight:700;color:var(--mid);margin-bottom:3px}
+.nc-d{font-size:clamp(12px,1.1vw,14px);color:var(--muted);line-height:1.45}
+.cta-box{background:linear-gradient(135deg,rgba(0,58,155,.4),rgba(37,87,214,.25));border:1px solid rgba(37,87,214,.4);border-radius:13px;padding:15px 20px;display:flex;gap:12px;align-items:center;width:100%}
+.cta-ico{font-size:22px;flex-shrink:0}
+.cta-txt{font-size:clamp(13px,1.2vw,15px);color:rgba(255,255,255,.88);line-height:1.55}
+
+/* ── SLIDE 12 Closing ── */
+.sc{justify-content:center;align-items:center;text-align:center}
+.sc .cl{margin-bottom:32px}
+.sc .ch{font-size:clamp(42px,5.5vw,78px);font-weight:900;letter-spacing:-.03em;line-height:1;margin-bottom:16px}
+.sc .ct{font-size:clamp(15px,1.55vw,20px);color:var(--muted);max-width:560px;line-height:1.65;margin:0 auto 28px}
+.pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:680px}
+.pill{padding:9px 20px;border-radius:100px;font-size:clamp(13px,1.15vw,15px);font-weight:700}
+.pp{background:var(--blue)}
+.pm{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18)}
+</style>
+</head>
+<body>
+<div id="sl"></div>
+<div id="deck">
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 1 · Title
+════════════════════════════════════════════ -->
+<div class="slide s1" data-i="0">
+  <div class="blobs">
+    <div class="blob" style="width:560px;height:560px;background:#003A9B;top:-130px;left:-150px;--d:15s;opacity:.6;--x1:35px;--y1:-25px;--x2:-25px;--y2:30px"></div>
+    <div class="blob" style="width:420px;height:420px;background:#2557D6;bottom:-90px;right:-100px;--d:11s;--dl:-5s;opacity:.44;--x1:-25px;--y1:20px;--x2:20px;--y2:-25px"></div>
+    <div class="blob" style="width:240px;height:240px;background:#003A9B;top:35%;right:22%;--d:8s;--dl:-3s;opacity:.28;--x1:15px;--y1:-12px;--x2:-10px;--y2:12px"></div>
+  </div>
+  <canvas class="pc" data-si="0"></canvas>
+  <div class="logo reveal">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 248 72" style="height:64px;width:auto;display:block;margin:0 auto">
+      <path d="M 5 26 Q 16 7 28 26" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <text x="0" y="66" font-family="'Noto Sans',sans-serif" font-weight="800" font-size="58" fill="white" letter-spacing="-1">indeed</text>
+    </svg>
+  </div>
+  <h1 class="reveal">Candidate Journey</h1>
+  <p class="sub1 reveal">Workshop</p>
+  <div class="dl reveal"></div>
+  <p class="sub2 reveal">Domino's Franchisees · Owners · Recruiters</p>
+  <p class="tag reveal">Facilitator Session Guide</p>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 2 · Framework Overview
+════════════════════════════════════════════ -->
+<div class="slide s2" data-i="1">
+  <div class="blobs">
+    <div class="blob" style="width:480px;height:480px;background:#003A9B;top:-140px;right:-100px;--d:14s;opacity:.54;--x1:-25px;--y1:15px;--x2:20px;--y2:-25px"></div>
+    <div class="blob" style="width:340px;height:340px;background:#2557D6;bottom:-70px;left:-80px;--d:10s;--dl:-4s;opacity:.37;--x1:20px;--y1:-15px;--x2:-15px;--y2:18px"></div>
+  </div>
+  <span class="badge reveal">Session Overview</span>
+  <h2 class="reveal">The 6-Stage Candidate Journey</h2>
+  <p class="intro reveal">Every candidate follows a path from first discovery to walking through your door. This session maps that journey — and helps you spot where you're winning, and where you're losing people.</p>
+  <div class="jtrack reveal">
+    <div class="jnode"><div class="jc jc1">1</div><span class="jlbl">Visibility</span></div>
+    <div class="jcon"></div>
+    <div class="jnode"><div class="jc jc2">2</div><span class="jlbl">Brand Appeal</span></div>
+    <div class="jcon"></div>
+    <div class="jnode"><div class="jc jc3">3</div><span class="jlbl">The Offer</span></div>
+    <div class="jcon"></div>
+    <div class="jnode"><div class="jc jc4">4</div><span class="jlbl">Getting Apps</span></div>
+    <div class="jcon"></div>
+    <div class="jnode"><div class="jc jc5">5</div><span class="jlbl">Responding</span></div>
+    <div class="jcon"></div>
+    <div class="jnode"><div class="jc jc6">6</div><span class="jlbl">Making the Hire</span></div>
+  </div>
+  <div class="fwc reveal">
+    <div class="gc"><span class="em">👟</span><div class="gt">Candidate's shoes</div><p class="gd">We look at every stage through the eyes of the candidate — their experience, their doubts, their decisions.</p></div>
+    <div class="gc"><span class="em">💬</span><div class="gt">Honest discussion</div><p class="gd">No right answers here — just honest conversations about what's working and what's costing you candidates.</p></div>
+    <div class="gc"><span class="em">🎯</span><div class="gt">Clear structure</div><p class="gd">Six focused stages. Six sets of questions. Practical actions you can take back to your store this week.</p></div>
+  </div>
+  <div class="fac-bar reveal">
+    <span class="fac-ico">⏱️</span>
+    <span class="fac-txt"><strong style="color:rgba(255,255,255,.7)">Facilitator guide:</strong> Allow 8–10 minutes per stage &nbsp;·&nbsp; Capture headline answers on a flipchart or whiteboard &nbsp;·&nbsp; Return to this slide at any point to show where you are in the journey</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 3 · Stage 1: Visibility
+════════════════════════════════════════════ -->
+<div class="slide ss" data-i="2">
+  <div class="blobs">
+    <div class="blob" style="width:460px;height:460px;background:#003A9B;bottom:-110px;right:-110px;--d:13s;opacity:.58;--x1:-20px;--y1:15px;--x2:15px;--y2:-20px"></div>
+    <div class="blob" style="width:290px;height:290px;background:#2557D6;top:-70px;left:38%;--d:9s;--dl:-3s;opacity:.32;--x1:15px;--y1:-10px;--x2:-10px;--y2:12px"></div>
+  </div>
+  <span class="badge reveal">Stage 1 of 6</span>
+  <h2 class="sh reveal">👁️ Visibility</h2>
+  <p class="fq reveal">Where and how do candidates discover you as an employer?</p>
+  <div class="pb reveal">
+    <div class="pl">Opening prompt →</div>
+    <p class="pt">"Think about the last person you hired. How did they first find out you were looking for someone?"</p>
+  </div>
+  <div class="qg">
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Which job boards or platforms does your store currently post on — and why those ones?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Do you ever ask new starters how they first heard about your vacancy?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">How complete is your Indeed employer profile — photos, description, company info?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Do you use any offline methods: window signs, social media, employee referrals?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">If a candidate searches "jobs near me" in your town tonight, will your listing appear?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Do you have a consistent process for when and how you post new vacancies?</p></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 4 · Stage 2: Brand Appeal
+════════════════════════════════════════════ -->
+<div class="slide ss" data-i="3">
+  <div class="blobs">
+    <div class="blob" style="width:500px;height:500px;background:#003A9B;top:-130px;left:-130px;--d:14s;opacity:.57;--x1:28px;--y1:-20px;--x2:-22px;--y2:28px"></div>
+    <div class="blob" style="width:310px;height:310px;background:#2557D6;bottom:-60px;right:12%;--d:10s;--dl:-5s;opacity:.37;--x1:-18px;--y1:13px;--x2:13px;--y2:-18px"></div>
+  </div>
+  <span class="badge reveal">Stage 2 of 6</span>
+  <h2 class="sh reveal">🏆 Brand Appeal</h2>
+  <p class="fq reveal">Once a candidate notices you, what makes them curious enough to find out more?</p>
+  <div class="pb reveal">
+    <div class="pl">Opening prompt →</div>
+    <p class="pt">"A 19-year-old is scrolling Indeed and sees your listing next to five others — what makes them click on yours?"</p>
+  </div>
+  <div class="qg">
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">What do your current job ads say about working for you — beyond just the role description?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Do your listings include real photos of your team, store, or actual work environment?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Have you checked your Indeed employer reviews lately — and have you responded to any?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">What is your genuine #1 selling point as a local employer right now?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Does a candidate reading your listing know who they're actually applying to work for?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">If you lined up your ad alongside a competitor's, what would make a candidate choose yours?</p></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 5 · AI Brand Check Activity
+════════════════════════════════════════════ -->
+<div class="slide sai" data-i="4">
+  <div class="blobs">
+    <div class="blob" style="width:540px;height:540px;background:#003A9B;top:-150px;right:-130px;--d:15s;opacity:.55;--x1:-30px;--y1:20px;--x2:22px;--y2:-30px"></div>
+    <div class="blob" style="width:380px;height:380px;background:#2557D6;bottom:-100px;left:-100px;--d:11s;--dl:-5s;opacity:.4;--x1:24px;--y1:-18px;--x2:-18px;--y2:24px"></div>
+    <div class="blob" style="width:220px;height:220px;background:#003A9B;top:30%;left:40%;--d:8s;--dl:-3s;opacity:.24;--x1:12px;--y1:-10px;--x2:-8px;--y2:10px"></div>
+  </div>
+  <span class="badge reveal">Live Activity · Brand Appeal</span>
+  <h2 class="reveal">What Does AI Say About Your Store?</h2>
+  <p class="aisub reveal">Job seekers are increasingly using AI to research employers before they even read a job ad. In 30 seconds, you can find out exactly what AI already knows — and says — about working for you.</p>
+  <div class="ai-steps reveal">
+    <div class="ai-step">
+      <span class="step-icon">📱</span>
+      <div class="step-title">Step 1 — Take out your phone</div>
+      <p class="step-body">Open <em>ChatGPT</em>, <em>Perplexity</em>, or do a <em>Google</em> search and look at the AI Overview at the top.</p>
+    </div>
+    <div class="ai-step">
+      <span class="step-icon">🔍</span>
+      <div class="step-title">Step 2 — Ask the question</div>
+      <p class="step-body">Type: <em>"What's it like to work at [your company name]?"</em> or <em>"Is [company] a good employer?"</em></p>
+    </div>
+    <div class="ai-step">
+      <span class="step-icon">🗣️</span>
+      <div class="step-title">Step 3 — Read it aloud</div>
+      <p class="step-body">Share what comes back with the group. Is it accurate? Positive? Would it encourage someone to apply?</p>
+    </div>
+  </div>
+  <div class="ai-discuss reveal">
+    <div class="ai-q"><div class="qb">Q</div><p class="qt">Was what came back accurate — and would it encourage or put off a candidate?</p></div>
+    <div class="ai-q"><div class="qb">Q</div><p class="qt">Where do you think the AI learned that information about your company?</p></div>
+    <div class="ai-q"><div class="qb">Q</div><p class="qt">Did your job ads, Indeed reviews, or employer profile shape the answer?</p></div>
+    <div class="ai-q"><div class="qb">Q</div><p class="qt">What would you <em style="font-style:italic;background:none;padding:0">want</em> AI to say about working for you?</p></div>
+  </div>
+  <div class="ai-insight reveal">
+    <span style="font-size:21px;flex-shrink:0">💡</span>
+    <p class="tt">AI tools learn from job boards, review platforms, and public content about your company. Your <strong>Indeed profile</strong>, <strong>job descriptions</strong>, and <strong>employer reviews</strong> directly shape what AI says about your store — and what candidates see before they ever click Apply.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 6 · Stage 3: The Offer  (+EVP contrast)
+════════════════════════════════════════════ -->
+<div class="slide ss" data-i="6">
+  <div class="blobs">
+    <div class="blob" style="width:450px;height:450px;background:#003A9B;bottom:-100px;left:-100px;--d:15s;opacity:.55;--x1:22px;--y1:-18px;--x2:-18px;--y2:22px"></div>
+    <div class="blob" style="width:300px;height:300px;background:#2557D6;top:8%;right:-50px;--d:11s;--dl:-6s;opacity:.37;--x1:-15px;--y1:10px;--x2:10px;--y2:-15px"></div>
+  </div>
+  <span class="badge reveal">Stage 3 of 6</span>
+  <h2 class="sh reveal">💰 The Offer</h2>
+  <p class="fq reveal">What specifically convinces a candidate that applying is worth their time?</p>
+  <div class="pb reveal">
+    <div class="pl">Opening prompt →</div>
+    <p class="pt">"If a candidate is choosing between you and two other local employers — what's the one thing that tips them towards you?"</p>
+  </div>
+  <div class="evp-row reveal">
+    <div class="evp-card evp-s">
+      <div class="evp-lbl">✅ Strong EVP — what good looks like</div>
+      <p class="evp-txt">"Paid weekly · free food every shift · hours built around your schedule · team leader pathway within 6 months"</p>
+    </div>
+    <div class="evp-card evp-w">
+      <div class="evp-lbl">❌ Weak EVP — what most stores say</div>
+      <p class="evp-txt">"You'll receive a Domino's uniform and access to the employee discount scheme"</p>
+    </div>
+  </div>
+  <div class="qg">
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Is your hourly rate clearly shown in the ad — and how does it compare to local competitors?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Do you list all relevant benefits: free food, flexible shifts, weekly pay, uniform provided?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Are hours, contracted shifts, and scheduling requirements clear before someone applies?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Do you mention training, development, or any progression pathway in the listing?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Is there anything in your listing that speaks to a candidate's life — flexibility for college, weekends off?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Would a 20-year-old reading your job ad feel genuinely excited, or just neutral?</p></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 6 · Stage 4: Getting Applications  (+mobile stat)
+════════════════════════════════════════════ -->
+<div class="slide ss" data-i="6">
+  <div class="blobs">
+    <div class="blob" style="width:490px;height:490px;background:#003A9B;top:-120px;right:-110px;--d:13s;opacity:.57;--x1:-28px;--y1:18px;--x2:22px;--y2:-28px"></div>
+    <div class="blob" style="width:330px;height:330px;background:#2557D6;bottom:-75px;left:18%;--d:10s;--dl:-3s;opacity:.35;--x1:18px;--y1:-13px;--x2:-13px;--y2:18px"></div>
+  </div>
+  <canvas class="pc" data-si="6"></canvas>
+  <span class="badge reveal">Stage 4 of 6</span>
+  <h2 class="sh reveal">📋 Getting Applications</h2>
+  <p class="fq reveal">How easy and frictionless is it for someone to actually apply?</p>
+  <div class="stat-chip reveal">📱 Indeed data: 87% of hospitality job searches happen on a mobile phone — is your apply process ready for that?</div>
+  <div class="pb reveal">
+    <div class="pl">Opening prompt →</div>
+    <p class="pt">"Have you ever tried applying to your own job listing on a mobile phone, from start to finish?"</p>
+  </div>
+  <div class="qg">
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">How many steps does your application process involve from clicking "Apply" to submitting?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Have you personally tried applying to your own listing on a mobile phone recently?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Do you ask for a full CV for entry-level crew roles — and is that really necessary?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Are there friction points: mandatory account creation, long forms, or eligibility tests?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Does a candidate know upfront what information they'll need before they start applying?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Could a motivated person complete your application in under 3 minutes on their phone?</p></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 7 · Stage 5: Responding & Screening  (+speed stat)
+════════════════════════════════════════════ -->
+<div class="slide ss" data-i="7">
+  <div class="blobs">
+    <div class="blob" style="width:480px;height:480px;background:#003A9B;bottom:-130px;right:-95px;--d:14s;opacity:.56;--x1:-23px;--y1:18px;--x2:18px;--y2:-23px"></div>
+    <div class="blob" style="width:305px;height:305px;background:#2557D6;top:-65px;left:32%;--d:10s;--dl:-4s;opacity:.34;--x1:14px;--y1:-10px;--x2:-10px;--y2:14px"></div>
+  </div>
+  <span class="badge reveal">Stage 5 of 6</span>
+  <h2 class="sh reveal">⚡ Responding &amp; Screening</h2>
+  <p class="fq reveal">What happens after someone hits apply — and how quickly does it happen?</p>
+  <div class="stat-chip reveal">⏱️ Candidates who don't hear back within 24 hours are 3× more likely to accept a competitor's offer first</div>
+  <div class="pb reveal">
+    <div class="pl">Opening prompt →</div>
+    <p class="pt">"Think about the last candidate who didn't show for an interview. When did you first contact them after they applied?"</p>
+  </div>
+  <div class="qg">
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">What is your typical response time after a new application arrives — hours or days?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Does every applicant receive an automatic acknowledgement the moment they apply?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Who in your store owns the job of reviewing and responding to new applications?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">What does your interview invite process look like — phone call, text message, or email?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Do you send a reminder message to candidates the day before their interview slot?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">What is your interview no-show rate — and what's your honest view on what's causing it?</p></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 8 · Stage 6: Making the Hire
+════════════════════════════════════════════ -->
+<div class="slide ss" data-i="8">
+  <div class="blobs">
+    <div class="blob" style="width:500px;height:500px;background:#003A9B;top:-115px;left:-135px;--d:16s;opacity:.6;--x1:32px;--y1:-22px;--x2:-22px;--y2:32px"></div>
+    <div class="blob" style="width:315px;height:315px;background:#2557D6;bottom:-65px;right:8%;--d:11s;--dl:-5s;opacity:.37;--x1:-18px;--y1:13px;--x2:13px;--y2:-18px"></div>
+  </div>
+  <span class="badge reveal">Stage 6 of 6</span>
+  <h2 class="sh reveal">🎉 Making the Hire</h2>
+  <p class="fq reveal">What happens at the point of offer — and does it set the relationship up for success?</p>
+  <div class="pb reveal">
+    <div class="pl">Opening prompt →</div>
+    <p class="pt">"How many new starters don't come back after their first or second shift — and what do you think is driving that?"</p>
+  </div>
+  <div class="qg">
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">How do you deliver a job offer — phone call, text, email — and how quickly after interview?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Is all onboarding paperwork completed before the new starter's first shift?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Does a new hire know exactly what to expect on day one before they even arrive?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">Do you have a buddy or welcome system to support people through their first week?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">What happens if a new team member has a difficult or confusing first shift?</p></div>
+    <div class="qc reveal"><div class="qb">Q</div><p class="qt">How many new starters leave within the first four weeks — and what is the main reason?</p></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 9 · Priority Voting — Group Activity
+════════════════════════════════════════════ -->
+<div class="slide sv" data-i="9">
+  <div class="blobs">
+    <div class="blob" style="width:520px;height:520px;background:#003A9B;top:-140px;left:-140px;--d:14s;opacity:.58;--x1:30px;--y1:-22px;--x2:-22px;--y2:30px"></div>
+    <div class="blob" style="width:380px;height:380px;background:#2557D6;bottom:-100px;right:-100px;--d:11s;--dl:-5s;opacity:.4;--x1:-25px;--y1:18px;--x2:18px;--y2:-25px"></div>
+    <div class="blob" style="width:250px;height:250px;background:#003A9B;top:20%;right:15%;--d:8s;--dl:-3s;opacity:.25;--x1:15px;--y1:-12px;--x2:-10px;--y2:10px"></div>
+  </div>
+  <canvas class="pc" data-si="9"></canvas>
+  <span class="badge reveal">Group Activity</span>
+  <h2 class="reveal">Where Does Your Store Stand?</h2>
+  <p class="vsub reveal">For each stage, vote as a group — be honest. Where are you strong, and where are you losing candidates?</p>
+  <div class="vgrid reveal">
+    <div class="vc">
+      <div class="vc-n">Stage 1</div>
+      <div class="vc-t">👁️ Visibility</div>
+      <div class="vdots">
+        <div class="vd vdr">🔴<br>Needs work</div>
+        <div class="vd vdy">🟡<br>Getting there</div>
+        <div class="vd vdg">🟢<br>We're strong</div>
+      </div>
+    </div>
+    <div class="vc">
+      <div class="vc-n">Stage 2</div>
+      <div class="vc-t">🏆 Brand Appeal</div>
+      <div class="vdots">
+        <div class="vd vdr">🔴<br>Needs work</div>
+        <div class="vd vdy">🟡<br>Getting there</div>
+        <div class="vd vdg">🟢<br>We're strong</div>
+      </div>
+    </div>
+    <div class="vc">
+      <div class="vc-n">Stage 3</div>
+      <div class="vc-t">💰 The Offer</div>
+      <div class="vdots">
+        <div class="vd vdr">🔴<br>Needs work</div>
+        <div class="vd vdy">🟡<br>Getting there</div>
+        <div class="vd vdg">🟢<br>We're strong</div>
+      </div>
+    </div>
+    <div class="vc">
+      <div class="vc-n">Stage 4</div>
+      <div class="vc-t">📋 Getting Applications</div>
+      <div class="vdots">
+        <div class="vd vdr">🔴<br>Needs work</div>
+        <div class="vd vdy">🟡<br>Getting there</div>
+        <div class="vd vdg">🟢<br>We're strong</div>
+      </div>
+    </div>
+    <div class="vc">
+      <div class="vc-n">Stage 5</div>
+      <div class="vc-t">⚡ Responding &amp; Screening</div>
+      <div class="vdots">
+        <div class="vd vdr">🔴<br>Needs work</div>
+        <div class="vd vdy">🟡<br>Getting there</div>
+        <div class="vd vdg">🟢<br>We're strong</div>
+      </div>
+    </div>
+    <div class="vc">
+      <div class="vc-n">Stage 6</div>
+      <div class="vc-t">🎉 Making the Hire</div>
+      <div class="vdots">
+        <div class="vd vdr">🔴<br>Needs work</div>
+        <div class="vd vdy">🟡<br>Getting there</div>
+        <div class="vd vdg">🟢<br>We're strong</div>
+      </div>
+    </div>
+  </div>
+  <div class="commit-box reveal">
+    <span class="cb-ico">🎯</span>
+    <p class="cb-txt"><strong>Facilitator:</strong> Go around the room and discuss each stage. Note the 🔴 stages — these become your short-term priorities (next 90 days). The 🟡 stages are your medium-term opportunities. Mark the results on your whiteboard. The next slide shows the Indeed solution for each gap.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 10 · Quick Reference — At a Glance
+════════════════════════════════════════════ -->
+<div class="slide sr" data-i="10">
+  <div class="blobs">
+    <div class="blob" style="width:450px;height:450px;background:#003A9B;top:-125px;right:-85px;--d:13s;opacity:.52;--x1:-28px;--y1:18px;--x2:18px;--y2:-22px"></div>
+    <div class="blob" style="width:290px;height:290px;background:#2557D6;bottom:-65px;left:-75px;--d:9s;--dl:-4s;opacity:.35;--x1:18px;--y1:-13px;--x2:-13px;--y2:14px"></div>
+  </div>
+  <span class="badge reveal">Facilitator Reference</span>
+  <h2 class="rh reveal">All 6 Stages — At a Glance</h2>
+  <p class="rs reveal">Use this slide to review progress, recap the session, or prompt group reflection.</p>
+  <div class="rg reveal">
+    <div class="rc"><div class="rn">Stage 1</div><div class="rt">👁️ Visibility</div><p class="rd">Are candidates discovering you exist as an employer in the first place?</p></div>
+    <div class="rc"><div class="rn">Stage 2</div><div class="rt">🏆 Brand Appeal</div><p class="rd">Are candidates attracted to what they see once they find your listing?</p></div>
+    <div class="rc"><div class="rn">Stage 3</div><div class="rt">💰 The Offer</div><p class="rd">Are candidates convinced that applying is genuinely worth their time?</p></div>
+    <div class="rc"><div class="rn">Stage 4</div><div class="rt">📋 Getting Applications</div><p class="rd">Can candidates apply quickly and without unnecessary friction?</p></div>
+    <div class="rc"><div class="rn">Stage 5</div><div class="rt">⚡ Responding &amp; Screening</div><p class="rd">Are you responding fast enough to keep candidate interest alive?</p></div>
+    <div class="rc"><div class="rn">Stage 6</div><div class="rt">🎉 Making the Hire</div><p class="rd">Does your offer and onboarding set new starters up to stay?</p></div>
+  </div>
+  <div class="tb reveal">
+    <span class="ti">💡</span>
+    <p class="tt"><strong>Facilitation tip:</strong> After each stage, ask participants to vote — where does your store perform well, and where are you losing candidates? Use sticker dots or a show of hands.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 11 · Indeed Solutions
+════════════════════════════════════════════ -->
+<div class="slide sn" data-i="11">
+  <div class="blobs">
+    <div class="blob" style="width:500px;height:500px;background:#003A9B;top:-130px;right:-110px;--d:14s;opacity:.56;--x1:-26px;--y1:18px;--x2:20px;--y2:-26px"></div>
+    <div class="blob" style="width:360px;height:360px;background:#2557D6;bottom:-90px;left:-90px;--d:11s;--dl:-5s;opacity:.4;--x1:22px;--y1:-16px;--x2:-16px;--y2:20px"></div>
+    <div class="blob" style="width:220px;height:220px;background:#003A9B;top:25%;left:35%;--d:8s;--dl:-3s;opacity:.25;--x1:12px;--y1:-10px;--x2:-8px;--y2:10px"></div>
+  </div>
+  <span class="badge reveal">Indeed Solutions</span>
+  <h2 class="reveal">For Every Gap, a Solution</h2>
+  <p class="nsub reveal">The stages your group just flagged as priorities are exactly where we focus next. Indeed has products built for every step of the candidate journey.</p>
+  <div class="ngrid reveal">
+    <div class="nc">
+      <div class="nc-s">Stage 1 · Visibility</div>
+      <div class="nc-t">👁️ Get Found</div>
+      <div class="nc-p">Sponsored Jobs &amp; Smart Sourcing</div>
+      <p class="nc-d">Surface your listings to the right candidates at the right moment — active jobseekers and those not yet looking.</p>
+    </div>
+    <div class="nc">
+      <div class="nc-s">Stage 2 · Brand Appeal</div>
+      <div class="nc-t">🏆 Tell Your Story</div>
+      <div class="nc-p">Employer Branding Hub &amp; Spotlight Pages</div>
+      <p class="nc-d">A branded destination on Indeed that showcases your culture, team, and why working for you is worth it.</p>
+    </div>
+    <div class="nc">
+      <div class="nc-s">Stage 3 · The Offer</div>
+      <div class="nc-t">💰 Communicate Your EVP</div>
+      <div class="nc-p">Employer Branding Ads &amp; Company Reviews</div>
+      <p class="nc-d">Reach candidates before they search — and manage your employer reputation with reviewed responses.</p>
+    </div>
+    <div class="nc">
+      <div class="nc-s">Stage 4 · Getting Applications</div>
+      <div class="nc-t">📋 Remove the Friction</div>
+      <div class="nc-p">Indeed Apply &amp; ATS Integration</div>
+      <p class="nc-d">One-tap mobile apply — no account required. Applications flow directly into your hiring system.</p>
+    </div>
+    <div class="nc">
+      <div class="nc-s">Stage 5 · Responding &amp; Screening</div>
+      <div class="nc-t">⚡ Move Faster</div>
+      <div class="nc-p">Hiring Events &amp; Candidate Management</div>
+      <p class="nc-d">Run virtual or in-person speed-hiring sessions. Review, shortlist, and message applicants in one place.</p>
+    </div>
+    <div class="nc">
+      <div class="nc-s">Stage 6 · Making the Hire</div>
+      <div class="nc-t">🎉 Hire with Confidence</div>
+      <div class="nc-p">Assessments &amp; Hiring Analytics</div>
+      <p class="nc-d">Behaviour and skills screening before the offer. Track pipeline performance to cut your time-to-hire.</p>
+    </div>
+  </div>
+  <div class="cta-box reveal">
+    <span class="cta-ico">💬</span>
+    <p class="cta-txt"><strong>Next step:</strong> Your Indeed representative will walk you through the right combination of products for the stages your group flagged as red today. Every conversation starts with your store's specific gaps — not a generic pitch.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 12 · Closing
+════════════════════════════════════════════ -->
+<div class="slide sc" data-i="12">
+  <div class="blobs">
+    <div class="blob" style="width:580px;height:580px;background:#003A9B;top:-150px;left:-150px;--d:15s;opacity:.6;--x1:38px;--y1:-28px;--x2:-28px;--y2:38px"></div>
+    <div class="blob" style="width:440px;height:440px;background:#2557D6;bottom:-115px;right:-115px;--d:11s;--dl:-5s;opacity:.42;--x1:-28px;--y1:22px;--x2:22px;--y2:-28px"></div>
+    <div class="blob" style="width:260px;height:260px;background:#003A9B;top:28%;right:18%;--d:8s;--dl:-3s;opacity:.27;--x1:14px;--y1:-14px;--x2:-10px;--y2:10px"></div>
+  </div>
+  <canvas class="pc" data-si="12"></canvas>
+  <div class="cl reveal">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 248 72" style="height:46px;width:auto;display:block;margin:0 auto;opacity:.7">
+      <path d="M 5 26 Q 16 7 28 26" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <text x="0" y="66" font-family="'Noto Sans',sans-serif" font-weight="800" font-size="58" fill="white" letter-spacing="-1">indeed</text>
+    </svg>
+  </div>
+  <h2 class="ch reveal">Every Candidate Counts</h2>
+  <p class="ct reveal">The best hiring teams don't just post jobs — they design an experience. Every touchpoint in the candidate journey is a chance to attract, impress, and retain the people who will make your store succeed.</p>
+  <div class="pills reveal">
+    <span class="pill pp">👁️ Visibility</span>
+    <span class="pill pm">🏆 Brand Appeal</span>
+    <span class="pill pm">💰 The Offer</span>
+    <span class="pill pm">📋 Getting Applications</span>
+    <span class="pill pm">⚡ Responding &amp; Screening</span>
+    <span class="pill pp">🎉 Making the Hire</span>
+  </div>
+</div>
+
+</div><!-- #deck -->
+<div id="nd"></div>
+
+<script>
+/* ── Spotlight ── */
+const sl = document.getElementById('sl');
+document.addEventListener('mousemove', e => {
+  sl.style.setProperty('--sx', e.clientX + 'px');
+  sl.style.setProperty('--sy', e.clientY + 'px');
+});
+
+/* ── Particle system ── */
+class Pts {
+  constructor(el) {
+    this.el = el; this.ctx = el.getContext('2d');
+    this.p = []; this.af = null;
+    this.resize(); this.init();
+  }
+  resize() {
+    this.el.width  = this.el.offsetWidth  || window.innerWidth;
+    this.el.height = this.el.offsetHeight || window.innerHeight;
+  }
+  init() {
+    const n = Math.max(55, Math.floor(this.el.width * this.el.height / 14000));
+    this.p = Array.from({length: n}, () => ({
+      x:  Math.random() * this.el.width,
+      y:  Math.random() * this.el.height,
+      r:  Math.random() * 1.6 + 0.3,
+      vx: (Math.random() - .5) * .3,
+      vy: (Math.random() - .5) * .3,
+      a:  Math.random() * .45 + .08,
+      da: (Math.random() - .5) * .003
+    }));
+  }
+  tick() {
+    const {el, ctx, p} = this;
+    ctx.clearRect(0, 0, el.width, el.height);
+    for (const pt of p) {
+      pt.x = (pt.x + pt.vx + el.width)  % el.width;
+      pt.y = (pt.y + pt.vy + el.height) % el.height;
+      pt.a += pt.da;
+      if (pt.a < .05 || pt.a > .62) pt.da *= -1;
+      ctx.beginPath();
+      ctx.arc(pt.x, pt.y, pt.r, 0, 6.2832);
+      ctx.fillStyle = `rgba(255,255,255,${pt.a.toFixed(3)})`;
+      ctx.fill();
+    }
+    this.af = requestAnimationFrame(() => this.tick());
+  }
+  start() { if (!this.af) this.tick(); }
+  stop()  { if (this.af) { cancelAnimationFrame(this.af); this.af = null; } }
+}
+
+/* Particle canvases: slides 0 (title), 5 (mid-deck), 8 (voting), 11 (closing) */
+const ps = {};
+document.querySelectorAll('.pc').forEach(el => {
+  ps[+el.dataset.si] = new Pts(el);
+});
+
+window.addEventListener('resize', () => {
+  Object.values(ps).forEach(p => { p.stop(); p.resize(); p.init(); });
+  if (ps[cur]) ps[cur].start();
+});
+
+/* ── Navigation ── */
+const slides = Array.from(document.querySelectorAll('.slide'));
+const ndWrap = document.getElementById('nd');
+let cur = 0;
+
+slides.forEach((_, i) => {
+  const b = document.createElement('button');
+  b.className = 'dot' + (i === 0 ? ' active' : '');
+  b.setAttribute('aria-label', 'Slide ' + (i + 1));
+  b.addEventListener('click', () => go(i));
+  ndWrap.appendChild(b);
+});
+
+/* Assign staggered reveal delays */
+slides.forEach(sl => {
+  sl.querySelectorAll('.reveal').forEach((el, i) => {
+    const d = (0.06 + i * 0.09) + 's';
+    el.style.transitionDelay = d;
+    el.dataset.rd = d;
+  });
+});
+
+/* Activate slide 0 */
+slides[0].classList.add('active');
+if (ps[0]) ps[0].start();
+
+function updateDots(i) {
+  ndWrap.querySelectorAll('.dot').forEach((d, j) => d.classList.toggle('active', j === i));
+}
+
+function go(idx) {
+  if (idx === cur || idx < 0 || idx >= slides.length) return;
+  const out = slides[cur];
+  const inn = slides[idx];
+
+  /* Instant-reset reveals on outgoing slide */
+  out.classList.add('rst');
+  out.offsetHeight;
+  out.classList.remove('active');
+  out.offsetHeight;
+  requestAnimationFrame(() => out.classList.remove('rst'));
+
+  out.querySelectorAll('.reveal').forEach(el => {
+    el.style.transitionDelay = el.dataset.rd || '0s';
+  });
+
+  inn.classList.add('active');
+  cur = idx;
+  updateDots(idx);
+
+  /* Particle management */
+  Object.values(ps).forEach(p => p.stop());
+  if (ps[idx]) setTimeout(() => ps[idx].start(), 90);
+}
+
+/* Keyboard */
+document.addEventListener('keydown', e => {
+  if (['ArrowRight','ArrowDown',' '].includes(e.key)) { e.preventDefault(); go(cur + 1); }
+  else if (['ArrowLeft','ArrowUp'].includes(e.key))   { e.preventDefault(); go(cur - 1); }
+});
+
+/* Touch swipe */
+let tx0 = 0;
+document.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; }, {passive:true});
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx0;
+  if (Math.abs(dx) > 44) go(dx < 0 ? cur + 1 : cur - 1);
+}, {passive:true});
+
+/* Font-ready reveal */
+document.fonts.ready.then(() => document.body.classList.add('fl'));
+</script>
+</body>
+</html>
