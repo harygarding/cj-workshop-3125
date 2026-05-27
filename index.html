@@ -213,6 +213,10 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
 .tfm-qbox{background:rgba(37,87,214,.18);border-left:4px solid var(--mid);border-radius:0 14px 14px 0;padding:18px 24px;width:100%}
 .tfm-qlbl{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.13em;color:var(--mid);margin-bottom:6px}
 .tfm-qtext{font-size:clamp(16px,1.8vw,22px);font-weight:800;color:#fff;line-height:1.35;font-style:italic}
+.match-insight{display:flex;gap:14px;align-items:flex-start;background:linear-gradient(135deg,rgba(0,58,155,.5),rgba(37,87,214,.32));border:1px solid rgba(37,87,214,.6);border-radius:14px;padding:15px 20px;width:100%;margin-bottom:14px}
+.match-insight .mi-icon{font-size:26px;flex-shrink:0;margin-top:1px}
+.match-insight .mi-title{font-size:clamp(13px,1.25vw,16px);font-weight:800;color:#fff;margin-bottom:4px}
+.match-insight .mi-body{font-size:clamp(12px,1.1vw,14px);color:rgba(255,255,255,.8);line-height:1.55}
 
 /* ── SLIDE 12 Closing ── */
 .sc{justify-content:center;align-items:center;text-align:center}
@@ -344,17 +348,16 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
       </div>
     </div>
   </div>
-  <div class="plat-row reveal">
-    <span class="plat-lbl">Candidates cross-check you on:</span>
-    <span class="plat"><span class="pi">💙</span> Indeed</span>
-    <span class="plat"><span class="pi">🟢</span> Glassdoor</span>
-    <span class="plat"><span class="pi">🔵</span> LinkedIn</span>
-    <span class="plat"><span class="pi">🌐</span> Your Website</span>
-    <span class="plat"><span class="pi">📱</span> Social Media</span>
+  <div class="match-insight reveal">
+    <span class="mi-icon">💙</span>
+    <div>
+      <div class="mi-title">Indeed has evolved into a matching marketplace — not just a job board</div>
+      <p class="mi-body">Just like a dating app's algorithm surfaces the most compatible matches, Indeed's matching technology connects candidates to roles based on skills, preferences, and fit. The stronger and more consistent your employer brand story is across every platform, the better the candidates Indeed surfaces to you — and the more likely they are to say yes.</p>
+    </div>
   </div>
   <div class="tfm-qbox reveal">
     <div class="tfm-qlbl">🪞 Ask the room →</div>
-    <p class="tfm-qtext">"Truthfully — are you consistent across every place a candidate might encounter your brand?"</p>
+    <p class="tfm-qtext">"Truthfully — is your brand consistent enough across every platform for Indeed's matching to work in your favour?"</p>
   </div>
 </div>
 
@@ -653,7 +656,7 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
     <div class="nc">
       <div class="nc-s">Stage 1 · Visibility</div>
       <div class="nc-t">👁️ Get Found</div>
-      <div class="nc-p">Sponsored Jobs &amp; Smart Sourcing</div>
+      <div class="nc-p">Premium Sponsored Ads &amp; Smart Sourcing</div>
       <p class="nc-d">Surface your listings to the right candidates at the right moment — active jobseekers and those not yet looking.</p>
     </div>
     <div class="nc">
