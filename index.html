@@ -119,6 +119,18 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
 .gc .gt{font-size:clamp(15px,1.4vw,18px);font-weight:700;margin-bottom:5px}
 .gc .gd{font-size:clamp(13px,1.2vw,15px);color:var(--muted);line-height:1.55}
 
+/* ── AIDA journey track labels ── */
+.jaida{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--mid);margin-bottom:3px;text-align:center;max-width:72px;line-height:1.2}
+.jaida.ext{color:rgba(255,255,255,.32)}
+.aida-note{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.aida-pill{padding:4px 11px;border-radius:100px;font-size:11px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.1em;background:rgba(37,87,214,.35);
+  border:1px solid rgba(37,87,214,.5);color:rgba(255,255,255,.85)}
+.aida-pill.core{background:rgba(37,87,214,.55);border-color:rgba(37,87,214,.8);color:#fff}
+.aida-divider{width:1px;height:14px;background:rgba(255,255,255,.2)}
+.aida-desc{font-size:12px;color:rgba(255,255,255,.45);font-weight:600}
+
 /* ── SLIDES 3-8 Stage ── */
 .ss{justify-content:flex-start;align-items:flex-start;padding-top:42px}
 .sh{font-size:clamp(34px,4.2vw,58px);font-weight:900;letter-spacing:-.025em;line-height:1.05;margin-bottom:8px}
@@ -262,25 +274,35 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
     <div class="blob" style="width:340px;height:340px;background:#2557D6;bottom:-70px;left:-80px;--d:10s;--dl:-4s;opacity:.37;--x1:20px;--y1:-15px;--x2:-15px;--y2:18px"></div>
   </div>
   <span class="badge reveal">Session Overview</span>
-  <h2 class="reveal">The 6-Stage Candidate Journey</h2>
-  <p class="intro reveal">Every candidate follows a path from first discovery to walking through your door. This session maps that journey — and helps you spot where you're winning, and where you're losing people.</p>
+  <h2 class="reveal">Marketing Meets Recruitment</h2>
+  <p class="intro reveal">The best companies treat hiring like a marketing campaign. This session uses the classic <strong style="color:#fff">AIDA model</strong> — extended for the full candidate journey — to show exactly where you're winning candidates and where you're losing them.</p>
+  <div class="aida-note reveal">
+    <span class="aida-pill core">A — Attention</span>
+    <span class="aida-pill core">I — Interest</span>
+    <span class="aida-pill core">D — Desire</span>
+    <span class="aida-pill core">A — Action</span>
+    <span class="aida-divider"></span>
+    <span class="aida-pill">+ Experience</span>
+    <span class="aida-pill">+ Conversion</span>
+    <span class="aida-desc">← extended for recruitment</span>
+  </div>
   <div class="jtrack reveal">
-    <div class="jnode"><div class="jc jc1">1</div><span class="jlbl">Visibility</span></div>
+    <div class="jnode"><span class="jaida">Attention</span><div class="jc jc1">1</div><span class="jlbl">Visibility</span></div>
     <div class="jcon"></div>
-    <div class="jnode"><div class="jc jc2">2</div><span class="jlbl">Brand Appeal</span></div>
+    <div class="jnode"><span class="jaida">Interest</span><div class="jc jc2">2</div><span class="jlbl">Brand Appeal</span></div>
     <div class="jcon"></div>
-    <div class="jnode"><div class="jc jc3">3</div><span class="jlbl">The Offer</span></div>
+    <div class="jnode"><span class="jaida">Desire</span><div class="jc jc3">3</div><span class="jlbl">The Offer</span></div>
     <div class="jcon"></div>
-    <div class="jnode"><div class="jc jc4">4</div><span class="jlbl">Getting Apps</span></div>
+    <div class="jnode"><span class="jaida">Action</span><div class="jc jc4">4</div><span class="jlbl">Getting Apps</span></div>
     <div class="jcon"></div>
-    <div class="jnode"><div class="jc jc5">5</div><span class="jlbl">Responding</span></div>
+    <div class="jnode"><span class="jaida ext">Experience</span><div class="jc jc5">5</div><span class="jlbl">Responding</span></div>
     <div class="jcon"></div>
-    <div class="jnode"><div class="jc jc6">6</div><span class="jlbl">Making the Hire</span></div>
+    <div class="jnode"><span class="jaida ext">Conversion</span><div class="jc jc6">6</div><span class="jlbl">Making the Hire</span></div>
   </div>
   <div class="fwc reveal">
-    <div class="gc"><span class="em">👟</span><div class="gt">Candidate's shoes</div><p class="gd">We look at every stage through the eyes of the candidate — their experience, their doubts, their decisions.</p></div>
-    <div class="gc"><span class="em">💬</span><div class="gt">Honest discussion</div><p class="gd">No right answers here — just honest conversations about what's working and what's costing you candidates.</p></div>
-    <div class="gc"><span class="em">🎯</span><div class="gt">Clear structure</div><p class="gd">Six focused stages. Six sets of questions. Practical actions you can take back to your store this week.</p></div>
+    <div class="gc"><span class="em">📣</span><div class="gt">A proven framework</div><p class="gd">AIDA has driven marketing strategy for decades. Applied to hiring, it reveals exactly where your recruitment funnel is leaking candidates.</p></div>
+    <div class="gc"><span class="em">👟</span><div class="gt">Candidate's shoes</div><p class="gd">We look at every stage through the eyes of the candidate — their experience, their doubts, their decisions at each step.</p></div>
+    <div class="gc"><span class="em">💬</span><div class="gt">Honest discussion</div><p class="gd">No right answers here — just real conversations about what's working and what's costing you the people you want to hire.</p></div>
   </div>
   <div class="fac-bar reveal">
     <span class="fac-ico">⏱️</span>
@@ -296,7 +318,7 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
     <div class="blob" style="width:460px;height:460px;background:#003A9B;bottom:-110px;right:-110px;--d:13s;opacity:.58;--x1:-20px;--y1:15px;--x2:15px;--y2:-20px"></div>
     <div class="blob" style="width:290px;height:290px;background:#2557D6;top:-70px;left:38%;--d:9s;--dl:-3s;opacity:.32;--x1:15px;--y1:-10px;--x2:-10px;--y2:12px"></div>
   </div>
-  <span class="badge reveal">Stage 1 of 6</span>
+  <span class="badge reveal">Attention · Stage 1 of 6</span>
   <h2 class="sh reveal">👁️ Visibility</h2>
   <p class="fq reveal">Where and how do candidates discover you as an employer?</p>
   <div class="pb reveal">
@@ -369,7 +391,7 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
     <div class="blob" style="width:500px;height:500px;background:#003A9B;top:-130px;left:-130px;--d:14s;opacity:.57;--x1:28px;--y1:-20px;--x2:-22px;--y2:28px"></div>
     <div class="blob" style="width:310px;height:310px;background:#2557D6;bottom:-60px;right:12%;--d:10s;--dl:-5s;opacity:.37;--x1:-18px;--y1:13px;--x2:13px;--y2:-18px"></div>
   </div>
-  <span class="badge reveal">Stage 2 of 6</span>
+  <span class="badge reveal">Interest · Stage 2 of 6</span>
   <h2 class="sh reveal">🏆 Brand Appeal</h2>
   <p class="fq reveal">Once a candidate notices you, what makes them curious enough to find out more?</p>
   <div class="pb reveal">
@@ -435,7 +457,7 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
     <div class="blob" style="width:450px;height:450px;background:#003A9B;bottom:-100px;left:-100px;--d:15s;opacity:.55;--x1:22px;--y1:-18px;--x2:-18px;--y2:22px"></div>
     <div class="blob" style="width:300px;height:300px;background:#2557D6;top:8%;right:-50px;--d:11s;--dl:-6s;opacity:.37;--x1:-15px;--y1:10px;--x2:10px;--y2:-15px"></div>
   </div>
-  <span class="badge reveal">Stage 3 of 6</span>
+  <span class="badge reveal">Desire · Stage 3 of 6</span>
   <h2 class="sh reveal">💰 The Offer</h2>
   <p class="fq reveal">What specifically convinces a candidate that applying is worth their time?</p>
   <div class="pb reveal">
@@ -471,7 +493,7 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
     <div class="blob" style="width:330px;height:330px;background:#2557D6;bottom:-75px;left:18%;--d:10s;--dl:-3s;opacity:.35;--x1:18px;--y1:-13px;--x2:-13px;--y2:18px"></div>
   </div>
   <canvas class="pc" data-si="7"></canvas>
-  <span class="badge reveal">Stage 4 of 6</span>
+  <span class="badge reveal">Action · Stage 4 of 6</span>
   <h2 class="sh reveal">📋 Getting Applications</h2>
   <p class="fq reveal">How easy and frictionless is it for someone to actually apply?</p>
   <div class="stat-chip reveal">📱 Indeed data: 87% of hospitality job searches happen on a mobile phone — is your apply process ready for that?</div>
@@ -497,7 +519,7 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
     <div class="blob" style="width:480px;height:480px;background:#003A9B;bottom:-130px;right:-95px;--d:14s;opacity:.56;--x1:-23px;--y1:18px;--x2:18px;--y2:-23px"></div>
     <div class="blob" style="width:305px;height:305px;background:#2557D6;top:-65px;left:32%;--d:10s;--dl:-4s;opacity:.34;--x1:14px;--y1:-10px;--x2:-10px;--y2:14px"></div>
   </div>
-  <span class="badge reveal">Stage 5 of 6</span>
+  <span class="badge reveal">Experience · Stage 5 of 6</span>
   <h2 class="sh reveal">⚡ Responding &amp; Screening</h2>
   <p class="fq reveal">What happens after someone hits apply — and how quickly does it happen?</p>
   <div class="stat-chip reveal">⏱️ Candidates who don't hear back within 24 hours are 3× more likely to accept a competitor's offer first</div>
@@ -523,7 +545,7 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
     <div class="blob" style="width:500px;height:500px;background:#003A9B;top:-115px;left:-135px;--d:16s;opacity:.6;--x1:32px;--y1:-22px;--x2:-22px;--y2:32px"></div>
     <div class="blob" style="width:315px;height:315px;background:#2557D6;bottom:-65px;right:8%;--d:11s;--dl:-5s;opacity:.37;--x1:-18px;--y1:13px;--x2:13px;--y2:-18px"></div>
   </div>
-  <span class="badge reveal">Stage 6 of 6</span>
+  <span class="badge reveal">Conversion · Stage 6 of 6</span>
   <h2 class="sh reveal">🎉 Making the Hire</h2>
   <p class="fq reveal">What happens at the point of offer — and does it set the relationship up for success?</p>
   <div class="pb reveal">
