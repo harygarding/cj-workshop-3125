@@ -132,6 +132,21 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
 .aida-desc{font-size:12px;color:rgba(255,255,255,.45);font-weight:600}
 
 /* ══ CLIENT VERSION — overrides for room display ══ */
+/* Dating app / Thought for a Minute slide — bigger for room */
+.stfm .tfm-hed{font-size:clamp(40px,5vw,68px)!important;margin-bottom:14px!important}
+.tfm-body{font-size:clamp(18px,1.8vw,24px)!important;margin-bottom:22px!important}
+.tfm-compare{margin-bottom:22px!important}
+.tfm-side{padding:24px 28px!important}
+.tfm-side-lbl{font-size:clamp(13px,1.3vw,16px)!important;margin-bottom:14px!important;font-weight:800}
+.tfm-attr{font-size:clamp(15px,1.5vw,20px)!important;gap:14px!important;margin-bottom:4px}
+.ta-ic{font-size:22px!important}
+.tfm-vs{font-size:clamp(28px,3vw,42px)!important}
+.plat-row{margin-top:4px!important}
+.plat-lbl{font-size:16px!important}
+.plat{font-size:15px!important;padding:8px 18px!important;gap:8px!important}
+.plat .pi{font-size:18px!important}
+
+
 /* Larger stage titles and framing questions */
 .sh{font-size:clamp(52px,5.8vw,82px)!important}
 .fq{font-size:clamp(20px,2vw,28px)!important;margin-bottom:28px!important}
@@ -385,16 +400,13 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
       </div>
     </div>
   </div>
-  <div class="match-insight reveal">
-    <span class="mi-icon">💙</span>
-    <div>
-      <div class="mi-title">Indeed has evolved into a matching marketplace — not just a job board</div>
-      <p class="mi-body">Just like a dating app's algorithm surfaces the most compatible matches, Indeed's matching technology connects candidates to roles based on skills, preferences, and fit. The stronger and more consistent your employer brand story is across every platform, the better the candidates Indeed surfaces to you — and the more likely they are to say yes.</p>
-    </div>
-  </div>
-  <div class="tfm-qbox reveal">
-    <div class="tfm-qlbl">🪞 Ask the room →</div>
-    <p class="tfm-qtext">"Truthfully — is your brand consistent enough across every platform for Indeed's matching to work in your favour?"</p>
+  <div class="plat-row reveal">
+    <span class="plat-lbl">Candidates cross-check you on:</span>
+    <span class="plat"><span class="pi">💙</span> Indeed</span>
+    <span class="plat"><span class="pi">🟢</span> Glassdoor</span>
+    <span class="plat"><span class="pi">🔵</span> LinkedIn</span>
+    <span class="plat"><span class="pi">🌐</span> Your Website</span>
+    <span class="plat"><span class="pi">📱</span> Social Media</span>
   </div>
 </div>
 
