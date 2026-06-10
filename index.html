@@ -147,12 +147,13 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
 .sai{justify-content:flex-start;align-items:flex-start;padding-top:42px}
 .sai h2{font-size:clamp(32px,4vw,54px);font-weight:900;letter-spacing:-.03em;margin-bottom:10px}
 .sai .aisub{font-size:clamp(14px,1.35vw,17px);color:var(--muted);max-width:740px;line-height:1.6;margin-bottom:24px}
-.ai-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;margin-bottom:20px}
-.ai-step{background:rgba(0,58,155,.35);border:1px solid rgba(37,87,214,.45);border-radius:14px;padding:20px 18px}
+.ai-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:100%;flex:1}
+.ai-step{background:var(--card);border:1px solid var(--border);border-radius:18px;
+  padding:30px 26px;display:flex;flex-direction:column;justify-content:flex-start}
 .step-num{width:32px;height:32px;border-radius:50%;background:var(--mid);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;margin-bottom:12px}
-.step-icon{font-size:26px;display:block;margin-bottom:10px}
-.step-title{font-size:clamp(14px,1.35vw,16px);font-weight:800;margin-bottom:7px}
-.step-body{font-size:clamp(12px,1.15vw,14px);color:rgba(255,255,255,.78);line-height:1.55}
+.step-icon{font-size:48px;display:block;margin-bottom:16px;line-height:1}
+.step-title{font-size:clamp(20px,2.1vw,28px);font-weight:800;letter-spacing:-.02em;margin-bottom:10px;line-height:1.2}
+.step-body{font-size:clamp(15px,1.5vw,19px);color:rgba(255,255,255,.72);line-height:1.6}
 .step-body em{font-style:normal;background:rgba(37,87,214,.35);border-radius:5px;padding:1px 7px;font-weight:600;color:rgba(255,255,255,.95)}
 .ai-discuss{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;margin-bottom:18px}
 .ai-q{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start}
@@ -168,7 +169,7 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
 .vc-t{font-size:clamp(15px,1.4vw,18px);font-weight:800;margin-bottom:12px}
 .vdots{display:flex;gap:8px}
 .vd{flex:1;padding:14px 6px;border-radius:11px;border:1px solid rgba(255,255,255,.12);
-  text-align:center;font-size:clamp(16px,1.7vw,21px);font-weight:700;line-height:1.4}
+  text-align:center;font-size:clamp(13px,1.3vw,16px);font-weight:700;line-height:1.4}
 .vdr{color:var(--red);border-color:rgba(255,90,80,.35);background:rgba(255,90,80,.06)}
 .vdy{color:var(--amber);border-color:rgba(255,196,57,.35);background:rgba(255,196,57,.06)}
 .vdg{color:var(--green);border-color:rgba(45,199,109,.35);background:rgba(45,199,109,.06)}
