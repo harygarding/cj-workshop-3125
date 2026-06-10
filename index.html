@@ -97,6 +97,10 @@ body.fl #deck{opacity:1;transition:opacity .4s ease}
 .s1 .dl{width:50px;height:3px;background:var(--mid);border-radius:2px;margin:0 auto 20px}
 .s1 .sub2{font-size:clamp(15px,1.6vw,20px);font-weight:600;color:rgba(255,255,255,.7);margin-bottom:6px}
 .s1 .tag{font-size:clamp(12px,1.1vw,14px);font-weight:400;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.14em}
+.s1 .presenters{position:absolute;bottom:32px;left:0;right:0;display:flex;justify-content:center;gap:40px}
+.s1 .presenter{text-align:center}
+.s1 .presenter-name{font-size:clamp(13px,1.2vw,16px);font-weight:700;color:rgba(255,255,255,.9);margin-bottom:2px}
+.s1 .presenter-role{font-size:clamp(11px,1vw,13px);font-weight:400;color:rgba(255,255,255,.45);letter-spacing:.04em}
 
 /* ── SLIDE 2 Framework ── */
 .s2{justify-content:flex-start;align-items:flex-start}
@@ -290,6 +294,16 @@ body.guide-open .slide.active .guide{transform:translateY(0)}
   <div class="dl reveal"></div>
   <p class="sub2 reveal">Domino's Franchisees · Owners · Recruiters</p>
   <p class="tag reveal">Facilitator Session Guide</p>
+  <div class="presenters reveal">
+    <div class="presenter">
+      <div class="presenter-name">Gary Harding</div>
+      <div class="presenter-role">Global Client Partner</div>
+    </div>
+    <div class="presenter">
+      <div class="presenter-name">James Smith</div>
+      <div class="presenter-role">Senior Manager GCS</div>
+    </div>
+  </div>
 </div>
 
 <!-- ═══════════════════════════════════════════
